@@ -23,9 +23,31 @@ export default function App() {
   const [stage, setStage] = useState(stages[0].name);
   const [words] = useState(wordList);
 
+  const [pickedWord, setPickedWord] = useState("");
+  const [picketCategory, setPickedCategory] = useState("");
+  const [letters, setLetters] = useState([]);
+
+  function pickedWordAndCategory() {
+    const categoryes = Object.keys(words);
+    const category = categoryes[Math.floor(Math.random() * categoryes.length)];
+
+    const word =
+      words[category][Math.floor(Math.random() * words[category].length)];
+    return [word, category];
+  }
+
   // start the secret word game
   function startGame() {
+    const [word, category] = pickedWordAndCategory();
+
+    let wordLetters = word.split("");
+    wordLetters = wordLetters.map((l) => l.toLowerCase());
+
+    console.log(wordLetters);
     setStage(stages[1].name);
+    setPickedWord(word);
+    setPickedCategory(category);
+    setLetters(letters);
   }
 
   // end the secret word game
